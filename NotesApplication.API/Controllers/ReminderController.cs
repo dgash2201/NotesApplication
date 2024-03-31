@@ -2,12 +2,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NotesApplication.Application.Reminders.Commands.BindTags;
+using NotesApplication.Application.Reminders.Commands.Create;
+using NotesApplication.Application.Reminders.Commands.Delete;
 using NotesApplication.Application.Reminders.Commands.UnbindTag;
-using NotesApplication.Application.Tags.Commands.Create;
-using NotesApplication.Application.Tags.Commands.Delete;
-using NotesApplication.Application.Tags.Commands.Update;
-using NotesApplication.Application.Tags.Queries.Get;
-using NotesApplication.Application.Tags.Queries.GetAll;
+using NotesApplication.Application.Reminders.Commands.Update;
+using NotesApplication.Application.Reminders.Queries.Get;
+using NotesApplication.Application.Reminders.Queries.GetAll;
 
 namespace NotesApplication.API.Controllers
 {
@@ -23,50 +23,56 @@ namespace NotesApplication.API.Controllers
             _mediator = mediator;
         }
 
+
+        /// <summary>
+        /// Получить все напоминания
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("get-all")]
-        public async Task<IActionResult> GetAll([FromBody] GetAllTagsQuery query)
+        public async Task<IActionResult> GetAll([FromBody] GetAllRemindersQuery query)
         {
             var response = await _mediator.Send(query);
             return Ok(response);
         }
 
         [HttpPost("get")]
-        public async Task<IActionResult> Get([FromBody] GetTagQuery query)
+        public async Task<IActionResult> Get([FromBody] GetReminderQuery query)
         {
             var response = await _mediator.Send(query);
             return Ok(response);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateTagCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateReminderCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> Update([FromBody] UpdateTagCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateReminderCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromBody] DeleteTagCommand command)
+        public async Task<IActionResult> Delete([FromBody] DeleteReminderCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
         }
 
         [HttpPost("bind-tags")]
-        public async Task<IActionResult> BindTags([FromBody] BindTagsCommand command)
+        public async Task<IActionResult> BindReminders([FromBody] BindReminderTagsCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
         }
 
         [HttpPost("unbind-tag")]
-        public async Task<IActionResult> UnbindTag([FromBody] UnbindTagCommand command)
+        public async Task<IActionResult> UnbindReminder([FromBody] UnbindReminderTagCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);

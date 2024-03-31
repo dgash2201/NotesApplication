@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using NotesApplication.Application.Common.Repository;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 using NotesApplication.Domain;
 
 namespace NotesApplication.Application.Tags.Commands.Update
@@ -28,8 +28,8 @@ namespace NotesApplication.Application.Tags.Commands.Update
             }
 
             var tag = await _repository.GetAsync(request.Id);
-
             tag.Name = request.Name;
+            await _repository.SaveChangesAsync();
 
             return new Response<Tag>()
             {

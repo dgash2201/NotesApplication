@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 
 namespace NotesApplication.Application.Notes.Commands.UnbindTag
 {
-    public class UnbindTagCommand : IRequest<Response>
+    public class UnbindNoteTagCommand : IRequest<Response>
     {
         public int NoteId { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace NotesApplication.Application.Notes.Commands.UnbindTag
 {
-    public class UnbindTagCommandValidator : AbstractValidator<UnbindTagCommand>
+    public class UnbindTagCommandValidator : AbstractValidator<UnbindNoteTagCommand>
     {
         public UnbindTagCommandValidator()
         {

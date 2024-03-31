@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using NotesApplication.Application.Common.Repository;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 using NotesApplication.Domain;
 
 namespace NotesApplication.Application.Notes.Commands.Update
@@ -23,7 +23,7 @@ namespace NotesApplication.Application.Notes.Commands.Update
                 return new Response()
                 {
                     IsSuccess = false,
-                    Errors = new List<string>() { "Такого напоминания не существует\n" },
+                    Errors = new List<string>() { "Такой заметки не существует\n" },
                 };
             }
 

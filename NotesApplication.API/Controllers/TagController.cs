@@ -21,6 +21,11 @@ namespace NotesApplication.API.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Получить все тэги
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("get-all")]
         public async Task<IActionResult> GetAll([FromBody] GetAllTagsQuery query)
         {

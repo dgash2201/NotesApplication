@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using NotesApplication.Application.Common.Repository;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 using NotesApplication.Domain;
 
 namespace NotesApplication.Application.Tags.Commands.Delete
@@ -16,6 +16,17 @@ namespace NotesApplication.Application.Tags.Commands.Delete
 
         public async Task<Response> Handle(DeleteTagCommand request, CancellationToken cancellationToken)
         {
+            var contains = await _repository.ContainsAsync(x => x.Id == request.Id);
+
+            if (!contains)
+            {
+                return new Response<Tag>()
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>() { "Такого тэга не существует\n" },
+                };
+            }
+
             var tag = await _repository.GetAsync(request.Id);
 
             _repository.Delete(tag);

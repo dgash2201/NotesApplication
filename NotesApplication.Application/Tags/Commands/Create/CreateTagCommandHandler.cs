@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using NotesApplication.Application.Common.Repository;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 using NotesApplication.Domain;
 
 namespace NotesApplication.Application.Tags.Commands.Create

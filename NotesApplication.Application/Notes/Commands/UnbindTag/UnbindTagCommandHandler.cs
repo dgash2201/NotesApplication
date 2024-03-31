@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using NotesApplication.Application.Common.Repository;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 using NotesApplication.Domain;
 
 namespace NotesApplication.Application.Notes.Commands.UnbindTag
 {
-    public class UnbindTagCommandHandler : IRequestHandler<UnbindTagCommand, Response>
+    public class UnbindTagCommandHandler : IRequestHandler<UnbindNoteTagCommand, Response>
     {
         private readonly IRepository<Note> _repository;
 
@@ -14,7 +14,7 @@ namespace NotesApplication.Application.Notes.Commands.UnbindTag
             _repository = repository;
         }
 
-        public Task<Response> Handle(UnbindTagCommand request, CancellationToken cancellationToken)
+        public Task<Response> Handle(UnbindNoteTagCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using NotesApplication.Application.Common.Repository;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 using NotesApplication.Application.Tags.Commands.Create;
 using NotesApplication.Domain;
 
 namespace NotesApplication.Application.Notes.Commands.BindTags
 {
-    public class BindTagsCommandHandler : IRequestHandler<BindTagsCommand, Response<Note>>
+    public class BindTagsCommandHandler : IRequestHandler<BindNoteTagsCommand, Response<Note>>
     {
         private readonly IRepository<Note> _repository;
         private readonly IMediator _mediator;
@@ -17,7 +17,7 @@ namespace NotesApplication.Application.Notes.Commands.BindTags
             _mediator = mediator;
         }
 
-        public async Task<Response<Note>> Handle(BindTagsCommand request, CancellationToken cancellationToken)
+        public async Task<Response<Note>> Handle(BindNoteTagsCommand request, CancellationToken cancellationToken)
         {
             var contains = await _repository.ContainsAsync(x => x.Id == request.NoteId);
 
@@ -26,7 +26,7 @@ namespace NotesApplication.Application.Notes.Commands.BindTags
                 return new Response<Note>()
                 {
                     IsSuccess = false,
-                    Errors = new List<string>() { "Такого напоминания не существует\n" },
+                    Errors = new List<string>() { "Такой заметки не существует\n" },
                 };
             }
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NotesApplication.Application;
 using NotesApplication.Application.Common.Settings;
 using NotesApplication.Infrastructure;
+using System.Reflection;
 
 namespace NotesApplication.API
 {
@@ -22,7 +23,12 @@ namespace NotesApplication.API
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(o =>
+            {
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                o.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
+
             builder.Services
             .AddApiVersioning(o =>
             {
@@ -38,12 +44,11 @@ namespace NotesApplication.API
 
             builder.Services.AddDbContext<NotesDbContext>(o =>
             {
-                o.UseNpgsql(configuration.GetConnectionString("LocalhostConnection"));
+                o.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddApplication();
 
             var app = builder.Build();
-
 
             app.UseSwagger();
             app.UseSwaggerUI(o =>
@@ -56,7 +61,7 @@ namespace NotesApplication.API
                     var url = $"/swagger/{description.GroupName}/swagger.json";
                     var name = description.GroupName.ToUpperInvariant();
                     o.SwaggerEndpoint(url, name);
-                }
+                }                
             });
 
             app.UseExceptionHandler(app => app.Run(async context =>

@@ -43,10 +43,5 @@ namespace NotesApplication.Application.Tests.Common
         {
             return Task.CompletedTask;
         }
-
-        public void Update(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

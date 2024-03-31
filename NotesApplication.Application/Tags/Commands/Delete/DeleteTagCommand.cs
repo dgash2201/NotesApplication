@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 
 namespace NotesApplication.Application.Tags.Commands.Delete
 {

@@ -13,5 +13,21 @@ namespace NotesApplication.Infrastructure
 
         public NotesDbContext(DbContextOptions<NotesDbContext> options) : base(options) {}
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Tag>()
+                .HasIndex(x => x.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Reminder>()
+                .HasIndex(x => x.Title)
+                .IsUnique();
+
+            modelBuilder.Entity<Note>()
+                .HasIndex(x => x.Title)
+                .IsUnique();
+        }
+
     }
 }

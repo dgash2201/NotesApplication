@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NotesApplication.Infrastructure.Migrations
 {
     [DbContext(typeof(NotesDbContext))]
-    [Migration("20240330095822_Initial1")]
-    partial class Initial1
+    [Migration("20240331090032_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace NotesApplication.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Title")
+                        .IsUnique();
+
                     b.ToTable("Notes");
                 });
 
@@ -65,6 +68,9 @@ namespace NotesApplication.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Title")
+                        .IsUnique();
+
                     b.ToTable("Reminders");
                 });
 
@@ -87,6 +93,9 @@ namespace NotesApplication.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("NoteId");
 

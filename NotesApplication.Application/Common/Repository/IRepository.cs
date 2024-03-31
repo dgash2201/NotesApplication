@@ -1,4 +1,5 @@
 ﻿using NotesApplication.Domain;
+using System.Linq.Expressions;
 
 namespace NotesApplication.Application.Common.Repository
 {
@@ -13,6 +14,6 @@ namespace NotesApplication.Application.Common.Repository
 
         public Task SaveChangesAsync();
 
-        public Task<bool> ContainsAsync(Func<TEntity, bool> predicate);
+        public Task<bool> ContainsAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

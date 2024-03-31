@@ -20,9 +20,9 @@ namespace NotesApplication.Application.Common.Repository
             return entity;
         }
 
-        public async Task<bool> ContainsAsync(Func<TEntity, bool> predicate)
+        public async Task<bool> ContainsAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _db.Set<TEntity>().AnyAsync(x => predicate(x));
+            return await _db.Set<TEntity>().AnyAsync(predicate);
         }
 
         public void Delete(TEntity entity)
@@ -30,9 +30,11 @@ namespace NotesApplication.Application.Common.Repository
             _db.Remove(entity);
         }
 
-        public Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            IEnumerable<TEntity> result = await _db.Set<TEntity>().ToListAsync();
+
+            return result;
         }
 
         public async Task<TEntity> GetAsync(int id)

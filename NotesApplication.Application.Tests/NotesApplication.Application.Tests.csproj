@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Notes\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\NotesApplication.Application\NotesApplication.Application.csproj" />
   </ItemGroup>
 

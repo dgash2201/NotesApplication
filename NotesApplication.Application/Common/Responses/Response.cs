@@ -1,4 +1,4 @@
-﻿namespace NotesApplication.Application.Common.Response
+﻿namespace NotesApplication.Application.Common.Responses
 {
     public class Response
     {

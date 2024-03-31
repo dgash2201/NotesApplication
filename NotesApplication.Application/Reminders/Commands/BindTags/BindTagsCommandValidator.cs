@@ -2,7 +2,7 @@
 
 namespace NotesApplication.Application.Reminders.Commands.BindTags
 {
-    public class BindTagsCommandValidator : AbstractValidator<BindTagsCommand>
+    public class BindTagsCommandValidator : AbstractValidator<BindReminderTagsCommand>
     {
         public BindTagsCommandValidator()
         {

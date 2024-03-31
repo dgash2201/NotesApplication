@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 using NotesApplication.Domain;
 
 namespace NotesApplication.Application.Notes.Commands.BindTags
 {
-    public class BindTagsCommand : IRequest<Response<Note>>
+    public class BindNoteTagsCommand : IRequest<Response<Note>>
     {
         public int NoteId { get; init; }
 

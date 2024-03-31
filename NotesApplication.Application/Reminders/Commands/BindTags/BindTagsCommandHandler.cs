@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using NotesApplication.Application.Common.Repository;
-using NotesApplication.Application.Common.Response;
+using NotesApplication.Application.Common.Responses;
 using NotesApplication.Application.Tags.Commands.Create;
 using NotesApplication.Domain;
 
 namespace NotesApplication.Application.Reminders.Commands.BindTags
 {
-    public class BindTagsCommandHandler : IRequestHandler<BindTagsCommand, Response<Reminder>>
+    public class BindTagsCommandHandler : IRequestHandler<BindReminderTagsCommand, Response<Reminder>>
     {
         private readonly IRepository<Reminder> _repository;
         private readonly IMediator _mediator;
@@ -17,7 +17,7 @@ namespace NotesApplication.Application.Reminders.Commands.BindTags
             _mediator = mediator;
         }
 
-        public async Task<Response<Reminder>> Handle(BindTagsCommand request, CancellationToken cancellationToken)
+        public async Task<Response<Reminder>> Handle(BindReminderTagsCommand request, CancellationToken cancellationToken)
         {
             var contains = await _repository.ContainsAsync(x => x.Id == request.ReminderId);
 
@@ -39,11 +39,11 @@ namespace NotesApplication.Application.Reminders.Commands.BindTags
                     Name = tagName,
                 };
 
-                var responseTag = await _mediator.Send(createTagCommand);
+                var tagResponse = await _mediator.Send(createTagCommand);
 
-                if (responseTag.IsSuccess)
+                if (tagResponse.IsSuccess)
                 {
-                    reminder.Tags.Add(responseTag.Value);
+                    reminder.Tags.Add(tagResponse.Value);
                 }
             }
 

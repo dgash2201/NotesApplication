@@ -39,6 +39,9 @@ namespace NotesApplication.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Title")
+                        .IsUnique();
+
                     b.ToTable("Notes");
                 });
 
@@ -62,6 +65,9 @@ namespace NotesApplication.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Title")
+                        .IsUnique();
+
                     b.ToTable("Reminders");
                 });
 
@@ -84,6 +90,9 @@ namespace NotesApplication.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("NoteId");
 
