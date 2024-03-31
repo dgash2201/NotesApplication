@@ -27,7 +27,7 @@ namespace NotesApplication.Application.Reminders.Commands.Update
                 };
             }
 
-            var reminder = await _repository.GetAsync(request.Id);
+            var reminder = await _repository.GetAsync(x => x.Id == request.Id);
 
             reminder.Title = request.Title;
             reminder.Time = request.Time;

@@ -27,7 +27,7 @@ namespace NotesApplication.Application.Tags.Commands.Update
                 };
             }
 
-            var tag = await _repository.GetAsync(request.Id);
+            var tag = await _repository.GetAsync(x => x.Id == request.Id);
             tag.Name = request.Name;
             await _repository.SaveChangesAsync();
 

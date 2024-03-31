@@ -1,5 +1,6 @@
 ﻿using NotesApplication.Application.Common.Repository;
 using NotesApplication.Domain;
+using System.Linq.Expressions;
 
 namespace NotesApplication.Application.Tests.Common
 {
@@ -19,9 +20,9 @@ namespace NotesApplication.Application.Tests.Common
             return entity;
         }
 
-        public Task<bool> ContainsAsync(Func<TEntity, bool> predicate)
+        public Task<bool> ContainsAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return Task.FromResult(_storage.Any(predicate));
+            return Task.FromResult(_storage.Any(predicate.Compile()));
         }
 
         public void Delete(TEntity entity)
@@ -34,9 +35,9 @@ namespace NotesApplication.Application.Tests.Common
             throw new NotImplementedException();
         }
 
-        public Task<TEntity> GetAsync(int id)
+        public Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return Task.FromResult(_storage.Find(x => x.Id == id));
+            return Task.FromResult(_storage.FirstOrDefault(predicate.Compile()));
         }
 
         public Task SaveChangesAsync()

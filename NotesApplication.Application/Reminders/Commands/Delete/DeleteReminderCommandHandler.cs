@@ -27,7 +27,7 @@ namespace NotesApplication.Application.Reminders.Commands.Delete
                 };
             }
 
-            var reminder = await _repository.GetAsync(request.Id);
+            var reminder = await _repository.GetAsync(x => x.Id == request.Id);
 
             _repository.Delete(reminder);
 

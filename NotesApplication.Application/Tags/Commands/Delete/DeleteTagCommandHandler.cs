@@ -27,7 +27,7 @@ namespace NotesApplication.Application.Tags.Commands.Delete
                 };
             }
 
-            var tag = await _repository.GetAsync(request.Id);
+            var tag = await _repository.GetAsync(x => x.Id == request.Id);
 
             _repository.Delete(tag);
             await _repository.SaveChangesAsync();

@@ -37,9 +37,9 @@ namespace NotesApplication.Application.Common.Repository
             return result;
         }
 
-        public async Task<TEntity> GetAsync(int id)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _db.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+            return await _db.Set<TEntity>().FirstOrDefaultAsync(predicate);
         }
 
         public Task SaveChangesAsync()

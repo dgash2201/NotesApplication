@@ -8,7 +8,7 @@ namespace NotesApplication.Application.Common.Repository
         public TEntity Add(TEntity entity);
         public void Delete(TEntity entity);
 
-        public Task<TEntity> GetAsync(int id);
+        public Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate);
 
         public Task<IEnumerable<TEntity>> GetAllAsync();
 

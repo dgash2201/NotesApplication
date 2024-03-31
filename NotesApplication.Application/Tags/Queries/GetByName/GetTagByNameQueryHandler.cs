@@ -3,20 +3,20 @@ using NotesApplication.Application.Common.Repository;
 using NotesApplication.Application.Common.Responses;
 using NotesApplication.Domain;
 
-namespace NotesApplication.Application.Tags.Queries.Get
+namespace NotesApplication.Application.Tags.Queries.GetByName
 {
-    public class GetTagQueryHandler : IRequestHandler<GetTagQuery, Response<Tag>>
+    public class GetTagByNameQueryHandler : IRequestHandler<GetTagByNameQuery, Response<Tag>>
     {
         private readonly IRepository<Tag> _repository;
 
-        public GetTagQueryHandler(IRepository<Tag> repository)
+        public GetTagByNameQueryHandler(IRepository<Tag> repository)
         {
             _repository = repository;
         }
 
-        public async Task<Response<Tag>> Handle(GetTagQuery request, CancellationToken cancellationToken)
+        public async Task<Response<Tag>> Handle(GetTagByNameQuery request, CancellationToken cancellationToken)
         {
-            var contains = await _repository.ContainsAsync(x => x.Id == request.Id);
+            var contains = await _repository.ContainsAsync(x => x.Name == request.Name);
 
             if (!contains)
             {
@@ -27,7 +27,7 @@ namespace NotesApplication.Application.Tags.Queries.Get
                 };
             }
 
-            var tag = await _repository.GetAsync(x => x.Id == request.Id);
+            var tag = await _repository.GetAsync(x => x.Name == request.Name);
 
             return new Response<Tag>
             {

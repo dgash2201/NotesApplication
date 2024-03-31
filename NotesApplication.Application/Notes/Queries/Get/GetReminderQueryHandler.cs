@@ -27,7 +27,7 @@ namespace NotesApplication.Application.Notes.Queries.Get
                 };
             }
 
-            var note = await _repository.GetAsync(request.Id);
+            var note = await _repository.GetAsync(x => x.Id == request.Id);
 
             return new Response<Note>()
             {

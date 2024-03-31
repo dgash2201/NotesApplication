@@ -2,6 +2,7 @@
 using NotesApplication.Application.Common.Repository;
 using NotesApplication.Application.Common.Responses;
 using NotesApplication.Application.Tags.Commands.Create;
+using NotesApplication.Application.Tags.Queries.GetByName;
 using NotesApplication.Domain;
 
 namespace NotesApplication.Application.Reminders.Commands.BindTags
@@ -30,16 +31,22 @@ namespace NotesApplication.Application.Reminders.Commands.BindTags
                 };
             }
 
-            var reminder = await _repository.GetAsync(request.ReminderId);
+            var reminder = await _repository.GetAsync(x => x.Id == request.ReminderId);
 
             foreach (var tagName in request.TagNames)
             {
-                var createTagCommand = new CreateTagCommand()
-                {
-                    Name = tagName,
-                };
+                var tagQuery = new GetTagByNameQuery() { Name = tagName };
+                var tagResponse = await _mediator.Send(tagQuery);
 
-                var tagResponse = await _mediator.Send(createTagCommand);
+                if (!tagResponse.IsSuccess)
+                {
+                    var createTagCommand = new CreateTagCommand()
+                    {
+                        Name = tagName,
+                    };
+
+                    tagResponse = await _mediator.Send(createTagCommand);
+                }
 
                 if (tagResponse.IsSuccess)
                 {

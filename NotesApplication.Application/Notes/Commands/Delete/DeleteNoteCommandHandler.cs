@@ -27,7 +27,7 @@ namespace NotesApplication.Application.Notes.Commands.Delete
                 };
             }
 
-            var note = await _repository.GetAsync(request.Id);
+            var note = await _repository.GetAsync(x => x.Id == request.Id);
 
             _repository.Delete(note);
 

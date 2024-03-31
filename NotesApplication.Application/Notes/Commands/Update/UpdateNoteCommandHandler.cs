@@ -27,7 +27,7 @@ namespace NotesApplication.Application.Notes.Commands.Update
                 };
             }
 
-            var note = await _repository.GetAsync(request.Id);
+            var note = await _repository.GetAsync(x => x.Id == request.Id);
 
             note.Title = request.Title;
             note.Text = request.Text;
