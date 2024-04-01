@@ -40,5 +40,26 @@ namespace NotesApplication.Application.Tests.Reminders
             Assert.False(await _repository.ContainsAsync(x => x.Id == id));
         }
 
+        [Fact]
+        public async Task FailsIfReminderNotExist()
+        {
+            // Arrange
+            var id = 1;
+            var title = "Reminder1";
+            var toDelete = new Reminder
+            {
+                Id = id,
+                Title = title,
+            };
+
+
+            // Act
+            var reminderResponse = await _handler.Handle(new DeleteReminderCommand { Id = id }, CancellationToken.None);
+
+
+            // Assert
+            Assert.NotNull(reminderResponse);
+            Assert.False(reminderResponse.IsSuccess);
+        }
     }
 }

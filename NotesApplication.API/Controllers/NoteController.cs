@@ -35,6 +35,11 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Получить заметку
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("get")]
         public async Task<IActionResult> Get([FromBody] GetNoteQuery query)
         {
@@ -42,6 +47,11 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Создать заметку
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateNoteCommand command)
         {
@@ -49,6 +59,11 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Обновить заметку
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("update")]
         public async Task<IActionResult> Update([FromBody] UpdateNoteCommand command)
         {
@@ -56,6 +71,11 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Удалить заметку
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("delete")]
         public async Task<IActionResult> Delete([FromBody] DeleteNoteCommand command)
         {
@@ -63,15 +83,25 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Привязать тэги к заметке
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("bind-tags")]
-        public async Task<IActionResult> BindNotes([FromBody] BindNoteTagsCommand command)
+        public async Task<IActionResult> BindTags([FromBody] BindNoteTagsCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
         }
 
+        /// <summary>
+        /// Отвязать тэг от заметки
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("unbind-tag")]
-        public async Task<IActionResult> UnbindNote([FromBody] UnbindNoteTagCommand command)
+        public async Task<IActionResult> UnbindTag([FromBody] UnbindNoteTagCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);

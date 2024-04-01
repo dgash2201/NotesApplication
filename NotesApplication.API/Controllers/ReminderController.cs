@@ -36,6 +36,12 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+
+        /// <summary>
+        /// Получить напоминание
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("get")]
         public async Task<IActionResult> Get([FromBody] GetReminderQuery query)
         {
@@ -43,6 +49,11 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Создать напоминание
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateReminderCommand command)
         {
@@ -50,6 +61,11 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Обновить напоминание
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("update")]
         public async Task<IActionResult> Update([FromBody] UpdateReminderCommand command)
         {
@@ -57,6 +73,11 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Удалить напоминание
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("delete")]
         public async Task<IActionResult> Delete([FromBody] DeleteReminderCommand command)
         {
@@ -64,15 +85,25 @@ namespace NotesApplication.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Привязать тэги к напоминанию
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("bind-tags")]
-        public async Task<IActionResult> BindReminders([FromBody] BindReminderTagsCommand command)
+        public async Task<IActionResult> BindTags([FromBody] BindReminderTagsCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
         }
 
+        /// <summary>
+        /// Отвязать тэг от напоминания
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("unbind-tag")]
-        public async Task<IActionResult> UnbindReminder([FromBody] UnbindReminderTagCommand command)
+        public async Task<IActionResult> UnbindTag([FromBody] UnbindReminderTagCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);

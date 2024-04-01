@@ -22,6 +22,21 @@ namespace NotesApplication.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("NoteTag", b =>
+                {
+                    b.Property<int>("NotesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("NotesId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("NoteTag");
+                });
+
             modelBuilder.Entity("NotesApplication.Domain.Note", b =>
                 {
                     b.Property<int>("Id")
@@ -83,43 +98,57 @@ namespace NotesApplication.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("NoteId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ReminderId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.HasIndex("NoteId");
-
-                    b.HasIndex("ReminderId");
-
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("NotesApplication.Domain.Tag", b =>
+            modelBuilder.Entity("ReminderTag", b =>
+                {
+                    b.Property<int>("RemindersId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("RemindersId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("ReminderTag");
+                });
+
+            modelBuilder.Entity("NoteTag", b =>
                 {
                     b.HasOne("NotesApplication.Domain.Note", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("NoteId");
+                        .WithMany()
+                        .HasForeignKey("NotesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
+                    b.HasOne("NotesApplication.Domain.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ReminderTag", b =>
+                {
                     b.HasOne("NotesApplication.Domain.Reminder", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("ReminderId");
-                });
+                        .WithMany()
+                        .HasForeignKey("RemindersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("NotesApplication.Domain.Note", b =>
-                {
-                    b.Navigation("Tags");
-                });
-
-            modelBuilder.Entity("NotesApplication.Domain.Reminder", b =>
-                {
-                    b.Navigation("Tags");
+                    b.HasOne("NotesApplication.Domain.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

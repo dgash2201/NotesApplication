@@ -4,6 +4,7 @@ using NotesApplication.Application;
 using NotesApplication.Application.Common.Settings;
 using NotesApplication.Infrastructure;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace NotesApplication.API
 {
@@ -21,7 +22,13 @@ namespace NotesApplication.API
 
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            builder.Services
+                .AddControllers()
+                .AddJsonOptions(o =>
+                {
+                    o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                    o.JsonSerializerOptions.WriteIndented = true;
+                });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(o =>
             {

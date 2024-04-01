@@ -16,6 +16,7 @@ namespace NotesApplication.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Tag>()
                 .HasIndex(x => x.Name)
                 .IsUnique();
@@ -23,10 +24,18 @@ namespace NotesApplication.Infrastructure
             modelBuilder.Entity<Reminder>()
                 .HasIndex(x => x.Title)
                 .IsUnique();
+            
+            modelBuilder.Entity<Reminder>()
+                .HasMany(x => x.Tags)
+                .WithMany(x => x.Reminders);
 
             modelBuilder.Entity<Note>()
                 .HasIndex(x => x.Title)
                 .IsUnique();
+
+            modelBuilder.Entity<Note>()
+                .HasMany(x => x.Tags)
+                .WithMany(x => x.Notes);
         }
 
     }

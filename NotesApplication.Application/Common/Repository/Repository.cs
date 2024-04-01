@@ -30,14 +30,14 @@ namespace NotesApplication.Application.Common.Repository
             _db.Remove(entity);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             IEnumerable<TEntity> result = await _db.Set<TEntity>().ToListAsync();
 
             return result;
         }
 
-        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _db.Set<TEntity>().FirstOrDefaultAsync(predicate);
         }
