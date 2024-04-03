@@ -52,7 +52,6 @@ namespace NotesApplication.Application.Tests.Reminders
                 Title = title,
             };
 
-
             // Act
             var reminderResponse = await _handler.Handle(new DeleteReminderCommand { Id = id }, CancellationToken.None);
 

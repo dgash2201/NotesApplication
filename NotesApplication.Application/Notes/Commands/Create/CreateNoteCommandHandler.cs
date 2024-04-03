@@ -16,6 +16,17 @@ namespace NotesApplication.Application.Notes.Commands.Create
 
         public async Task<Response<Note>> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
         {
+            var contains = await _repository.ContainsAsync(x => x.Title == request.Title);
+
+            if (!contains)
+            {
+                return new Response<Note>()
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>() { "Заметка с таким заголовком уже существует\n" },
+                };
+            }
+
             var note = new Note()
             {
                 Title = request.Title,

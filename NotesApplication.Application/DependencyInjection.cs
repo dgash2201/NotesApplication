@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using NotesApplication.Application.Common.Behaviours;
 using NotesApplication.Application.Common.Repository;
 using NotesApplication.Application.Notes.Repository;
 using NotesApplication.Application.Reminders.Repository;
@@ -15,6 +17,8 @@ namespace NotesApplication.Application
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IRepository<Note>), typeof(NoteRepository));
             services.AddScoped(typeof(IRepository<Reminder>), typeof(ReminderRepository));
+            services
+                .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             services.AddMediatR(config =>
                     config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

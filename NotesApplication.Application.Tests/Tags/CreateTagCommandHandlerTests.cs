@@ -10,7 +10,7 @@ namespace NotesApplication.Application.Tests.Tags
     {
         private readonly CreateTagCommandHandler _handler;
         private readonly IRepository<Tag> _repository;
-
+        private static int _c = 0;
 
         public CreateTagCommandHandlerTests()
         {

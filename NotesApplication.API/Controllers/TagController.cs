@@ -32,7 +32,6 @@ namespace NotesApplication.API.Controllers
         public async Task<IActionResult> GetAll([FromBody] GetAllTagsQuery query)
         {
             var response = await _mediator.Send(query);
-
             return Ok(response);
         }
 
@@ -46,7 +45,6 @@ namespace NotesApplication.API.Controllers
         public async Task<IActionResult> Get([FromBody] GetTagQuery query)
         {
             var response = await _mediator.Send(query);
-
             return Ok(response);
         }
 
@@ -59,7 +57,6 @@ namespace NotesApplication.API.Controllers
         public async Task<IActionResult> Create([FromBody] CreateTagCommand command)
         {
             var response = await _mediator.Send(command);
-
             return Ok(response);
         }
 
@@ -72,7 +69,6 @@ namespace NotesApplication.API.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateTagCommand command)
         {
             var response = await _mediator.Send(command);
-
             return Ok(response);
         }
 
@@ -84,9 +80,8 @@ namespace NotesApplication.API.Controllers
         [HttpPost("delete")]
         public async Task<IActionResult> Delete([FromBody] DeleteTagCommand command)
         {
-            await _mediator.Send(command);
-
-            return Ok();
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
     }
 }

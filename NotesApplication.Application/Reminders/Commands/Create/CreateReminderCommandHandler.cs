@@ -16,6 +16,17 @@ namespace NotesApplication.Application.Reminders.Commands.Create
 
         public async Task<Response<Reminder>> Handle(CreateReminderCommand request, CancellationToken cancellationToken)
         {
+            var contains = await _repository.ContainsAsync(x => x.Title == request.Title);
+
+            if (!contains)
+            {
+                return new Response<Reminder>()
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>() { "Напоминание с таким заголовком уже существует\n" },
+                };
+            }
+
             var reminder = new Reminder()
             {
                 Title = request.Title,

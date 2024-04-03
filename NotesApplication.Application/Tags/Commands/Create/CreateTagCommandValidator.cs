@@ -11,6 +11,10 @@ namespace NotesApplication.Application.Tags.Commands.Create
             RuleFor(command => command.Name)
                 .NotEmpty()
                 .MaximumLength(Config.ApplicationSettings.MaxTagNameLength);
+
+            RuleFor(command => command.Name)
+                .Matches(@"^\w+$")
+                .WithMessage("Имя тэга должно содержать только буквы и цифры без пробелов");
         }
     }
 }

@@ -33,20 +33,20 @@ namespace NotesApplication.Application.Tests.Reminders
             Assert.Equal(title, reminderResponse.Value.Title);
         }
 
-        //[Fact]
-        //public async Task NotCreateExistingReminder()
-        //{
-        //    // Arrange
-        //    var name = "Reminder1";
-        //    _repository.Add(new Reminder { Name = name });
-        //    await _repository.SaveAsync();
+        [Fact]
+        public async Task NotCreateExistingReminder()
+        {
+            // Arrange
+            var title = "Reminder1";
+            _repository.Add(new Reminder { Title = title });
+            await _repository.SaveChangesAsync();
 
-        //    // Act
-        //    var ReminderResponse = await _handler.Handle(new CreateReminderCommand { Name = name }, CancellationToken.None);
+            // Act
+            var reminderResponse = await _handler.Handle(new CreateReminderCommand { Title = title }, CancellationToken.None);
 
-        //    // Assert
-        //    Assert.NotNull(ReminderResponse);
-        //    Assert.False(ReminderResponse.IsSuccess);
-        //}
+            // Assert
+            Assert.NotNull(reminderResponse);
+            Assert.False(reminderResponse.IsSuccess);
+        }
     }
 }

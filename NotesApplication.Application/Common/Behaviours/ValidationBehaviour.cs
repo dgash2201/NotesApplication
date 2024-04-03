@@ -4,8 +4,9 @@ using NotesApplication.Application.Common.Responses;
 
 namespace NotesApplication.Application.Common.Behaviours
 {
-    public class ValidationBehaviour<TRequest> : IPipelineBehavior<TRequest, Response>
-        where TRequest : IRequest<Response>
+    public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+        where TRequest : IRequest<TResponse>
+        where TResponse : Response, new()
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -15,7 +16,7 @@ namespace NotesApplication.Application.Common.Behaviours
         }
 
 
-        public Task<Response> Handle(TRequest request, RequestHandlerDelegate<Response> next, CancellationToken cancellationToken)
+        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var context = new ValidationContext<TRequest>(request);
 
@@ -27,7 +28,7 @@ namespace NotesApplication.Application.Common.Behaviours
 
             if (failures.Count != 0)
             {
-                var response = new Response()
+                var response = new TResponse()
                 {
                     IsSuccess = false,
                 };

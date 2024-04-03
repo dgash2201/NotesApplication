@@ -33,20 +33,20 @@ namespace NotesApplication.Application.Tests.Notes
             Assert.Equal(title, noteResponse.Value.Title);
         }
 
-        //[Fact]
-        //public async Task NotCreateExistingNote()
-        //{
-        //    // Arrange
-        //    var name = "Note1";
-        //    _repository.Add(new Note { Name = name });
-        //    await _repository.SaveAsync();
+        [Fact]
+        public async Task NotCreateExistingNote()
+        {
+            // Arrange
+            var title = "Note1";
+            _repository.Add(new Note { Title = title });
+            await _repository.SaveChangesAsync();
 
-        //    // Act
-        //    var NoteResponse = await _handler.Handle(new CreateNoteCommand { Name = name }, CancellationToken.None);
+            // Act
+            var noteResponse = await _handler.Handle(new CreateNoteCommand { Title = title }, CancellationToken.None);
 
-        //    // Assert
-        //    Assert.NotNull(NoteResponse);
-        //    Assert.False(NoteResponse.IsSuccess);
-        //}
+            // Assert
+            Assert.NotNull(noteResponse);
+            Assert.False(noteResponse.IsSuccess);
+        }
     }
 }
