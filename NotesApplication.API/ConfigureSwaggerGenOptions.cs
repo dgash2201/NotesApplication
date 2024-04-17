@@ -24,7 +24,7 @@ namespace NotesApplication.API
         {
             var info = new OpenApiInfo()
             {
-                Title = "LSE.Stocks.API",
+                Title = "NotesApplication.API",
                 Version = description.ApiVersion.ToString()
             };
 
